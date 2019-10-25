@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -20,9 +20,51 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\dist\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\dist\**" />
+    <EmbeddedResource Remove="ClientApp\dist\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\dist\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\dist\3rdpartylicenses.txt" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\css\font-awesome-animation.min.css" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\css\fontawesome.min.css" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\css\solid.min.css" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-brands-400.eot" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-brands-400.svg" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-brands-400.ttf" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-brands-400.woff" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-brands-400.woff2" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-regular-400.eot" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-regular-400.svg" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-regular-400.ttf" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-regular-400.woff" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-regular-400.woff2" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-solid-900.eot" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-solid-900.svg" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-solid-900.ttf" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-solid-900.woff" />
+    <None Remove="ClientApp\dist\assets\libs\fontawesome\webfonts\fa-solid-900.woff2" />
+    <None Remove="ClientApp\dist\assets\logo.png" />
+    <None Remove="ClientApp\dist\assets\svg\c.svg" />
+    <None Remove="ClientApp\dist\assets\svg\l.svg" />
+    <None Remove="ClientApp\dist\assets\svg\lr.svg" />
+    <None Remove="ClientApp\dist\assets\svg\s.svg" />
+    <None Remove="ClientApp\dist\assets\svg\sr.svg" />
+    <None Remove="ClientApp\dist\favicon.ico" />
+    <None Remove="ClientApp\dist\index.html" />
+    <None Remove="ClientApp\dist\main-es2015.e0ee8ba804acf1944eac.js" />
+    <None Remove="ClientApp\dist\main-es5.71593a410be468457eee.js" />
+    <None Remove="ClientApp\dist\polyfills-es2015.27661dfa98f6332c27dc.js" />
+    <None Remove="ClientApp\dist\polyfills-es5.7f43b971448d2fb49202.js" />
+    <None Remove="ClientApp\dist\runtime-es2015.858f8dd898b75fe86926.js" />
+    <None Remove="ClientApp\dist\runtime-es5.741402d1d47331ce975c.js" />
+    <None Remove="ClientApp\dist\scripts.6ee986b7cd7aefa6baef.js" />
+    <None Remove="ClientApp\dist\styles.8dba2252e897598676a6.css" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
