@@ -1,0 +1,27 @@
+  .card-columns{
+    transition: 0.5s;
+  }
+  .card-columns .card {
+    transition: 0.5s;
+ 
+  }
+  .card-columns:hover .card {
+    filter: blur(5px);
+    transform: scale(.8);
+  }
+  .card-columns .card:hover {
+    color: white;
+    background-color: black;
+    transform: scale(1);
+    filter: blur(0px);
+    cursor: pointer;
+  }
+
+  .card-columns .card {
+    transform: scale(0.95);
+  }
+
+  .table tr {
+    cursor: pointer;
+  }
+

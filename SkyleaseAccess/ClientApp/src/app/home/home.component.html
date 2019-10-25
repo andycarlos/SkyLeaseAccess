@@ -1,0 +1,107 @@
+<div class="container">
+
+  <div class="d-flex justify-content-center" *ngIf="load">
+    <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+  <div class="col-auto mr-auto">
+    <button type="button" (click)="sectionFind()" class="btn btn-info btn-sm  faa-parent animated-hover"
+            data-toggle="modal" data-target="#ModalScrollableFind" >
+      <i class="fas fa-search faa-tada"></i>
+      Find Document
+    </button>
+  </div>
+
+  <div class="card-columns mt-2">
+    <div class="card" *ngFor="let section of sections " data-toggle="modal" data-target="#exampleModalScrollable" (click)="SectionOpenFileList(section)">
+      <div class="card-body">
+        <p class="card-text">
+          <i class="fas fa-file-pdf" style="font-size:32px;"></i>
+          <small> {{ section.items }} Items</small>
+        </p>
+        <h5 class="card-title text-center">{{section.title}}</h5>
+        <p class="card-text">{{section.description}}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="opendSectionActive" class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">{{modalTitle}}</h5>
+          <button type="button" (click)="CancelSectionOpenFileList()" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="d-flex justify-content-center" *ngIf="loadModal">
+            <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+
+          <table class="table table-hover">
+            <tbody>
+
+              <tr *ngFor="let file of SectionFileList" (click)="opendDocument(file)">
+                <th scope="row"><i class="fas fa-file-pdf" style="font-size:18px;"></i></th>
+                <td>{{file.fileName}}</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="CancelSectionOpenFileList()" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Find -->
+  <div  class="modal fade" id="ModalScrollableFind" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Find Documents</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="col-auto mb-2">
+            <input [(ngModel)]="filter" class="form-control form-control-sm" type="search" placeholder="Filter" aria-label="Search">
+          </div>
+
+          <div class="d-flex justify-content-center" *ngIf="loadModal">
+            <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+
+          <table class="table table-hover">
+            <tbody>
+              <tr *ngFor="let file of SectionFileList|filterFileInfo:filter |slice: (page-1) * pageSize : (page-1) * pageSize + pageSize;" (click)="opendDocument(file)">
+                <th scope="row"><i class="fas fa-file-pdf" style="font-size:18px;"></i></th>
+                <td>{{file.fileName}}</td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+        <div class="modal-footer">
+          <ngb-pagination class="mt-3" [collectionSize]="(SectionFileList|filterFileInfo:filter).length" [(page)]="page" [pageSize]="pageSize" [maxSize]="4">
+          </ngb-pagination>
+          <button type="button" class="btn btn-secondary" (click)="CancelSectionOpenFileList()" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

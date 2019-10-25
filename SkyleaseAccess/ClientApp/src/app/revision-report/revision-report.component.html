@@ -1,0 +1,35 @@
+<div class="container">
+  <form *ngIf="_userService.rolAdmin" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+
+    <div class="form-group" style="margin-bottom: 0px;">
+      <label class="btn btn-info btn-sm  faa-parent animated-hover">
+        <i class="fas fa-file-upload faa-bounce"></i>
+        <input formControlName=files
+               type="file"
+               #file
+               (change)="upload(file.files)">
+        Select File
+      </label>
+    </div>
+
+    <div *ngIf="fileSelect" class="card text-white bg-info mb-2 w-75">
+      <div class="card-header">
+        <button type="submit" class="btn btn-outline-light mr-2 btn-sm" [disabled]="!formGroup.valid">Upload File</button>
+        <h5 style="display:inline;position: relative; top:4px;">File Select</h5>
+      </div>
+      <div class="card-body">
+        <p class="card-title">Name: {{fileSelect.name}}</p>
+        <p class="card-title">Size: {{fileSelect.size|filesize}}</p>
+        <p class="card-title">Date: {{fileSelect.lastModified|date:'short'}}</p>
+      </div>
+    </div>
+  </form>
+
+
+
+  <div *ngIf="frameVisible" class="embed-responsive embed-responsive-4by3">
+    <iframe width="100%"
+            height="100%"
+            style="border: none;" [src]="url()" allowfullscreen></iframe>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="container">
+  <h1>Files</h1>
+  <hr>
+  <form *ngIf="_userService.rolAdmin|| _userService.rolFileAdd" novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+
+    <div class="form-group" style="margin-bottom: 0px;">
+      <label class="btn btn-info btn-sm  faa-parent animated-hover">
+        <i class="fas fa-file-upload faa-bounce"></i>
+        <input formControlName=files
+               type="file"
+               #file
+               (change)="upload(file.files)">
+        Select File
+      </label>
+    </div>
+
+    <div *ngIf="fileSelect" class="card text-white bg-info mb-2 w-75">
+      <div class="card-header">
+        <button type="submit" class="btn btn-outline-light mr-2 btn-sm" [disabled]="!formGroup.valid">Upload File</button>
+        <h5 style="display:inline;position: relative; top:4px;">File Select</h5>
+      </div>
+      <div class="card-body">
+        <p class="card-title">Name: {{fileSelect.name}}</p>
+        <p class="card-title">Size: {{fileSelect.size|filesize}}</p>
+        <p class="card-title">Date: {{fileSelect.lastModified|date:'short'}}</p>
+        <div *ngIf="progress > 0 && progress < 100">
+          <p>Upload File: {{loaded|filesize}} / {{total|filesize}}</p>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{'width.%': progress}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
+          </div>
+        </div>
+        <div *ngIf="serverWiter">
+          <p>Server is writing the file...</p>
+          <div class="spinner-grow text-light spinner-grow-sm" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-hover table-dark  table-sm">
+          <thead>
+            <tr class="bg-info">
+              <th scope="col">#</th>
+              <th scope="col">Date</th>
+              <th scope="col">Name</th>
+              <th scope="col">Size</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of fileList| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; index as i;">
+              <th scope="row">{{i+1 +((page-1) * pageSize)}}</th>
+              <td>{{file.lastModified|date:'short'}}</td>
+              <td>{{file.name}}</td>
+              <td>{{file.size|filesize}}</td>
+              <td>
+                <div class="float-right">
+                  <button *ngIf="_userService.rolAdmin|| _userService.rolFileDownload" [id]="file.name" value="" class="btn btn-success btn-sm ml-2 mr-2" #b (click)="donwload(file,b)">DownLoad</button>
+                  <button *ngIf="_userService.rolAdmin|| _userService.rolFileDel" class="btn btn-danger btn-sm" (click)="delectSelect(file)" data-toggle="modal" data-target="#exampleModal">Delete</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ngb-pagination [collectionSize]="fileList.length" [(page)]="page" [pageSize]="pageSize" [maxSize]="7">
+      </ngb-pagination>
+
+      <div class="d-flex justify-content-center" *ngIf="load">
+        <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="fileSelectDeleteFlat" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delect File</h5>
+          <button type="button" (click)="delectFileCancel()" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          You want to delete the file with the name: "{{fileSelectDelete.name}}"
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="delectFile()" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-secondary" (click)="delectFileCancel()" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="errorUpload" class="modal fade show" id="exampleModalErrorUpload" style="display: block;" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+          <button type="button" (click)="closeErrorUpload()" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Connection error try again please.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="closeErrorUpload()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

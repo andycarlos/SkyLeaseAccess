@@ -1,0 +1,118 @@
+<div class="container">
+  <h1>New User</h1><!--*ngIf='!editMode'-->
+  <!--<h1 *ngIf='editMode'>Edit Section</h1>-->
+  <hr>
+  <form novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+    <div class="row">
+      <div class="col">
+        <!-- name -->
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input formControlName="name"
+                 class="form-control form-control-sm"
+                 type="text" id="name" placeholder="Enter name">
+          <small id="emailHelp" class="form-text"
+                 *ngIf="((formGroup.get('name').touched || formGroup.get('name').dirty) && formGroup.get('name').errors?.required)">
+            The field is required.
+          </small>
+        </div>
+      </div>
+
+      <div class="col">
+        <!-- lastName -->
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input formControlName="lastName"
+                 class="form-control form-control-sm"
+                 type="text" id="lastName" placeholder="Enter Last Name">
+          <small id="emailHelp" class="form-text"
+                 *ngIf="((formGroup.get('lastName').touched || formGroup.get('lastName').dirty) && formGroup.get('lastName').errors?.required)">
+            The field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+        </div>
+        <input formControlName="email"
+               #email
+               class="form-control form-control-sm"
+               type="text" id="email" placeholder="Enter Email">
+      </div>
+      <small id="emailHelp" class="form-text"
+             *ngIf="((formGroup.get('email').touched || formGroup.get('email').dirty) && formGroup.get('email').errors?.required)">
+        The field is required.
+      </small>
+      <small class="form-text" *ngIf="formGroup.get('email').errors?.anyEmail">
+        There is a Email with that name "{{email.value}}".
+      </small>
+      <small class="form-text" *ngIf="!formGroup.get('email').errors?.required && formGroup.get('email').errors?.isValidEmail">
+        Invalid Email "{{email.value}}".
+      </small>
+    </div>
+
+    <!-- Category -->
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select formControlName="category"
+              class="form-control form-control-sm"
+              type="text" id="category" placeholder="Enter Last Name">
+        <option>Administration</option>
+        <option>FAA</option>
+        <option>Maintenance</option>
+        <option>Operations</option>
+        <option>Pilots</option>
+        <option>Pilots Instructiors</option>
+        <option>Miscellaneous</option>
+      </select>
+      <small id="categoryHelp" class="form-text"
+             *ngIf="((formGroup.get('category').touched || formGroup.get('category').dirty) && formGroup.get('category').errors?.required)">
+        The field is required.
+      </small>
+    </div>
+
+    <!--<div class="row">
+      <div class="col">
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input formControlName="password"
+                 class="form-control form-control-sm"
+                 type="text" id="password" placeholder="Enter password">
+          <small id="emailHelp" class="form-text"
+                 *ngIf="((formGroup.get('password').touched || formGroup.get('password').dirty) && formGroup.get('password').errors?.required)">
+            The field is required.
+          </small>
+        </div>
+      </div>
+
+      <div class="col">
+
+        <div class="form-group">
+          <label for="confpassword">Confirm Password</label>
+          <input formControlName="confpassword"
+                 class="form-control form-control-sm"
+                 type="text" id="confpassword" placeholder="Enter Last password">
+          <small id="emailHelp" class="form-text"
+                 *ngIf="((formGroup.get('confpassword').touched || formGroup.get('confpassword').dirty) && formGroup.get('confpassword').errors?.required)">
+            The field is required.
+          </small>
+        </div>
+      </div>
+    </div>-->
+
+    <button type="button" class="btn btn-info mr-2" (click)="goBack()">Cancel</button>
+    <button type="submit" class="btn btn-info" [disabled]="!formGroup.valid">Submit</button> <!---->
+  </form>
+  <div class="d-flex justify-content-center" *ngIf="load">
+    <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>

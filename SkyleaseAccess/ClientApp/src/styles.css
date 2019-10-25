@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+  background-color:#4b4b4b
+}
+h1{
+color: white;
+
+}
+hr{
+  background-color:white;
+}
+a {
+  cursor:pointer;
+}
+
+
+div.col > ngb-pagination > ul > li > a {
+  background-color: #343a40;
+  color: #fff;
+  border-color: #454d55;
+}
+
+div.col > ngb-pagination > ul > li > a:focus,
+div.col > ngb-pagination > ul > li > a:hover,
+div.col > ngb-pagination > ul > li > span:focus,
+div.col > ngb-pagination > ul > li > span:hover {
+  color: white;
+  background-color: #454d55;
+  border-color: #454d55;
+}
+
+div.col > ngb-pagination > .active > a:hover {
+  background-color: #454d55;
+}
+.page-link:focus
+{
+  box-shadow:none;
+}
+
+div.col > ngb-pagination > ul > li.page-item.active > a {
+  background-color: #454d55;
+  border: #454d55;
+}
+div.col > ngb-pagination > ul > li.page-item.disabled > a {
+  background-color: #454d55;
+  border: #454d55;
+}

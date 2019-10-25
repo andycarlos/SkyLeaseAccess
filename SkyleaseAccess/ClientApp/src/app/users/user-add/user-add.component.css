@@ -1,0 +1,11 @@
+small {
+  color: darkorange;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label {
+  color: white;
+}

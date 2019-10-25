@@ -1,0 +1,99 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="contet">
+        <div class="lista">
+          <div class="box">
+            <img src="../../assets/svg/s.svg">
+            <img src="../../assets/svg/sr.svg">
+          </div>
+          <div class="box">
+            <img src="../../assets/svg/l.svg">
+            <img src="../../assets/svg/lr.svg">
+          </div>
+          <div class="box">
+            <img src="../../assets/svg/c.svg">
+          </div>
+          <div class="text">
+            <h1>KY</h1>
+          </div>
+          <div class="text">
+            <h1>EASE</h1>
+          </div>
+          <div class="text">
+            <h1>ARGO</h1>
+          </div>
+        </div>
+      </div>
+      <div class="text-center text-white mb-4">
+        <h2 >Skylease Access</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <!-- form card login -->
+          <div class="card rounded-lg">
+            <div class="card-header">
+              <h3 class="mb-0 text-center">Login</h3>
+            </div>
+            <div class="card-body">
+
+              <form [formGroup]="formGroup" (ngSubmit)="submit()" novalidate>
+                <small id="emailHelp" class="form-text text-center" *ngIf="error">
+                  {{error}}
+                </small>
+                <div class="form-group">
+                  <label for="uname1">Email</label>
+                  <input id="email"
+                         #email
+                         type="text"
+                         class="form-control form-control-sm"
+                         formControlName="email">
+                  <small id="emailHelp" class="form-text"
+                         *ngIf="((formGroup.get('email').touched || formGroup.get('email').dirty) && formGroup.get('email').errors?.required)">
+                    The field is required.
+                  </small>
+                  <small class="form-text" *ngIf="!formGroup.get('email').errors?.required && formGroup.get('email').errors?.isValidEmail">
+                    Invalid Email "{{email.value}}".
+                  </small>
+                </div>
+
+
+                <div class="form-group">
+                  <label>Password</label>
+                  <input id="password"
+                         type="password"
+                         class="form-control form-control-sm"
+                         formControlName="password">
+                </div>
+
+                <div>
+                  <p>
+                    <a class="text-primary pointer" (click)="forgodtpassword()">Forgot Password</a>
+                  </p>
+                </div>
+
+                <button [disabled]="!formGroup.valid"
+                        type="submit"
+                        class="btn btn-success  float-right"
+                        id="btnLogin">
+                  Login
+                </button>
+              </form>
+            </div>
+            <!--/card-block-->
+          </div>
+          <!-- /form card login -->
+
+        </div>
+
+
+      </div>
+      <!--/row-->
+
+    </div>
+    <!--/col-->
+  </div>
+  <!--/row-->
+</div>
+<!--/container-->

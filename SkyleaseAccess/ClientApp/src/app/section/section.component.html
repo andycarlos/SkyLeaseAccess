@@ -1,0 +1,78 @@
+<div class="container">
+  <h1>Section List</h1>
+  <hr>
+  <div class="row mb-2">
+    <div class="col-auto mr-auto">
+      <button type="button" class="btn btn-info btn-sm  faa-parent animated-hover " (click)="linkAddSection()">
+        <i class="fas fa-plus faa-tada"></i>
+        Add Section
+      </button>
+    </div>
+
+    <div class="col-auto">
+      <input [(ngModel)]="filter" class="form-control form-control-sm" type="search" placeholder="Filter" aria-label="Search">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="table-responsive">
+        <table class="table table-hover table-dark  table-sm">
+          <thead>
+            <tr class="bg-info">
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="colgroup">Items</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let section of sections|filterSection:filter | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; index as i;">
+              <th scope="row">{{i+1 +((page-1) * pageSize)}}</th>
+              <td>{{section.title}}</td>
+              <td>{{section.description|cutparagraph:50}}</td>
+              <td >
+                {{section.items}}
+                <div class="float-right">
+                  <button class="btn btn-success btn-sm ml-2 mr-2" (click)="edit(section.id)">Edit</button>
+                  <button class="btn btn-danger btn-sm" (click)="delect(section.id)" data-toggle="modal" data-target="#exampleModal">Delete</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ngb-pagination [collectionSize]="(sections|filterSection:filter).length" [(page)]="page" [pageSize]="pageSize" [maxSize]="7" >
+      </ngb-pagination>
+
+
+      <div class="d-flex justify-content-center" *ngIf="load">
+        <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  (click)="delect(section.id) -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delect Section</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          You want to delete the section with the name: "{{delecTitle}}"
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="confiDelect()" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>

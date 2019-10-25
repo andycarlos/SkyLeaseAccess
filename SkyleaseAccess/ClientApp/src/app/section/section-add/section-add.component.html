@@ -1,0 +1,88 @@
+<div class="container">
+  <h1 *ngIf='!editMode'>New Section</h1>
+  <h1 *ngIf='editMode'>Edit Section</h1>
+  <hr>
+  <form novalidate [formGroup]="formGroup" (ngSubmit)="save()">
+
+    <div class="form-group">
+      <label for="tilte">Title</label>
+      <input formControlName="title"
+             #title
+             class="form-control form-control-sm"
+             type="text" id="tilte" placeholder="Enter Title">
+      <small id="emailHelp" class="form-text"
+             *ngIf="((formGroup.get('title').touched || formGroup.get('title').dirty) && formGroup.get('title').errors?.required)">
+        The field is required.
+      </small>
+      <small class="form-text" *ngIf="formGroup.get('title').errors?.uniqueAlterEgo">
+        There is a section with that name "{{title.value}}".
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea formControlName="description"
+                class="form-control form-control-sm"
+                id="description" rows="3"
+                placeholder="Enter Description">
+                </textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="btn btn-info btn-sm mb-2 faa-parent animated-hover">
+        <i class="fas fa-file-upload faa-bounce"></i>
+        <input formControlName=files
+               type="file" multiple
+               accept=".pdf"
+               #file
+               (change)="upload(file.files)">
+        Upload File
+      </label>
+    </div>
+    <div class="form-group">
+      <div *ngFor="let name of filesNames;">
+        <span class="badge badge-warning ">
+          <span (click)="removelFile(name)" class="faa-parent animated-hover">
+            <i class="fas fa-trash-alt faa-flash" style="color: tomato; cursor: pointer;"></i>
+          </span>
+          {{name}}
+        </span>
+      </div>
+
+      <div *ngFor="let name of filesNamesOld;">
+        <span class="badge badge-warning ">
+          <span (click)="removelFileOld(name)" class="faa-parent animated-hover">
+            <i class="fas fa-trash-alt faa-flash" style="color: tomato; cursor: pointer;"></i>
+          </span>
+          {{name}}
+        </span>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center" *ngIf="load">
+      <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <div class="progress mb-2" *ngIf="progress > 0 && progress < 100">
+      <div class="progress-bar" role="progressbar" [ngStyle]="{'width.%': progress}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
+    </div>
+
+    <button type="button" class="btn btn-info mr-2" (click)="goBack()">Cancel</button>
+    <button type="submit" class="btn btn-info" [disabled]="!formGroup.valid">Submit</button>
+
+  </form>
+</div>
+
+
+
+<!--<span style="font-weight:bold;color:green;" *ngIf="progress > 0 && progress < 100">
+    {{progress}}%
+  </span>
+  
+  <span style="font-weight:bold;color:green;" *ngIf="message">
+    {{message}}
+  </span>-->
+
+<!--  [ngClass]="{'is-invalid': (formGroup.get('title').touched || formGroup.get('title').dirty) && !formGroup.get('title').valid }"> -->

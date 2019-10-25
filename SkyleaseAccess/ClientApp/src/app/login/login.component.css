@@ -1,0 +1,120 @@
+small {
+  color: crimson;
+}
+
+.contet {
+  position:relative;
+  left:45%;
+  width:100px;
+}
+
+.lista {
+  position: relative;
+  width: 30px;
+  height: 96px;
+}
+
+  .lista .box {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    transition: 0.5s;
+  }
+
+    .lista .box img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #4b4b4b;
+    }
+
+    .lista .box:nth-child(1) img:nth-child(2) {
+      z-index: -1;
+    }
+
+    .lista .box:nth-child(2) img:nth-child(2) {
+      z-index: -1;
+    }
+
+    .lista .box:nth-child(1) {
+      top: 30px;
+      transform: rotate(-45deg) skew(15deg,15deg);
+    }
+
+    .lista .box:nth-child(2) {
+      top: 55px;
+      left: -13px;
+      transform: rotate(14deg) skew(15deg,15deg);
+    }
+
+    .lista .box:nth-child(3) {
+      top: 54px;
+      left: 16px;
+      transform: rotate(-15deg) skew(-15deg,-15deg);
+    }
+
+  .lista .text {
+    position: absolute;
+    width: 0px;
+    height: 33px;
+    left: 32px;
+    overflow: hidden;
+    transition-delay: 0s;
+  }
+
+    .lista .text h1 {
+      font-size: 35px;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      font-weight:600;
+    }
+
+    .lista .text:nth-child(4) {
+      top: -2px;
+    }
+    .lista .text:nth-child(4) h1{
+      color: #800000;
+    }
+    .lista .text:nth-child(5) {
+      top: 30px;
+    }
+    .lista .text:nth-child(5) h1{
+      color: #800000;
+    }
+    .lista .text:nth-child(6) {
+      top: 62px;
+    }
+    .lista .text:nth-child(6) h1{
+      color: yellow;
+    }
+
+  .lista:hover .box:nth-child(1) {
+    transform: rotate(0deg) skew(0deg,0deg);
+    top: 0;
+  }
+
+  .lista:hover .box:nth-child(2) {
+    transform: rotate(0deg) skew(0deg,0deg);
+    top: 32px;
+    left: 0;
+  }
+
+  .lista:hover .box:nth-child(3) {
+    transform: rotate(0deg) skew(0deg,0deg);
+    top: 64px;
+    left: 0;
+  }
+
+  .lista:hover .box:nth-child(1) img:nth-child(2) {
+    z-index: 2;
+  }
+
+  .lista:hover .box:nth-child(2) img:nth-child(2) {
+    z-index: 2;
+  }
+
+  .lista:hover .text {
+    transition: 0.5s;
+    transition-delay: 0.5s;
+    width: 105px;
+  }
